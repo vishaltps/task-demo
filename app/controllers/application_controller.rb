@@ -27,3 +27,6 @@ class ApplicationController < ActionController::API
     ActiveModelSerializers::SerializableResource
   end
 end
+
+
+
