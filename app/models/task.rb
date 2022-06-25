@@ -7,8 +7,40 @@ class Task < ApplicationRecord
   has_many :tags, through: :task_tags
 
   accepts_nested_attributes_for :tags
+
+  def fummm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  end
 end
 
 
 
 
+def dumm
+
+  danjks
+end
