@@ -57,16 +57,34 @@ jobs:
       - name: Security audit application code
         run: bundle exec brakeman -q -w2
 
-  run:
+#WORKING PRONTO-RUBY ACTION DIRECT
+  # run:
+  #   runs-on: ubuntu-latest
+  #   name: pronto ruby
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: git fetch origin main --depth=1
+  #     - uses: adwerx/pronto-ruby@v2.8
+  #       with:
+  #         target: origin/main
+  #         runners: >-
+  #           brakeman fasterer flay poper rails_best_practices rails_schema reek rubocop
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+
+  pronto:
     runs-on: ubuntu-latest
     name: pronto ruby
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch origin main --depth=1
-      - uses: adwerx/pronto-ruby@v2.8
-        with:
-          target: origin/main
-          runners: >-
-            brakeman fasterer flay poper rails_best_practices rails_schema reek rubocop
+      - run: |
+          git fetch --no-tags --prune --depth=10 origin +refs/heads/*:refs/remotes/origin/*
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+      - name: Setup pronto
+        run: gem install pronto pronto-rubocop
+      - name: Run Pronto
+        run: pronto run -f github_status github_pr -c origin/${{ github.base_ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          PRONTO_PULL_REQUEST_ID: ${{ github.event.pull_request.number }}
+          PRONTO_GITHUB_ACCESS_TOKEN: "${{ github.token }}"
