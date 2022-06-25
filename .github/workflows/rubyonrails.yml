@@ -68,5 +68,7 @@ jobs:
       - uses: adwerx/pronto-ruby@v2.8
         with:
           target: origin/main
+          runners: >-
+            brakeman fasterer flay poper rails_best_practices rails_schema reek rubocop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
