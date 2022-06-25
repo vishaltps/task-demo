@@ -8,8 +8,7 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :tags
 
-  def fummm
-
+  def fumm
 
 
 
