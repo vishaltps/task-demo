@@ -13,6 +13,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: test
     services:
       postgres:
         image: postgres:11-alpine
@@ -42,6 +43,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    name: rails security
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -59,6 +61,7 @@ jobs:
 
   run:
     runs-on: ubuntu-latest
+    name: pronto ruby
     steps:
       - uses: actions/checkout@v2
       - run: git fetch origin main --depth=1
