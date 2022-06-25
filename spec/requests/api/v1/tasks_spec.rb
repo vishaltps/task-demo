@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Tasks", type: :request do
+RSpec.describe 'Api::V1::Tasks', type: :request do
   describe 'POST create' do
     it 'should create the task' do
-      post '/api/v1/tasks', params: { task: { title: 'do this task', tags_attributes: [{ name: 'twitter' }]} }
+      post '/api/v1/tasks', params: { task: { title: 'do this task', tags_attributes: [{ name: 'twitter' }] } }
       expect(response.status).to eq 201
       parsed_response = JSON.parse(response.body)
 

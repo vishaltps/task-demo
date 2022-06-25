@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   around_action :handle_exceptions, if: proc { request.path.include?('/api') }
 
@@ -20,13 +22,13 @@ class ApplicationController < ActionController::API
       binding.break
       @status = 500
     end
-    json_response({ success: false, message: @message || e.class.to_s, errors: [{ detail: e.message }] }, @status) unless e.class == NilClass
+    unless e.instance_of?(NilClass)
+      json_response({ success: false, message: @message || e.class.to_s, errors: [{ detail: e.message }] },
+                    @status)
+    end
   end
 
   def array_serializer
     ActiveModelSerializers::SerializableResource
   end
 end
-
-
-

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Tags", type: :request do
+RSpec.describe 'Api::V1::Tags', type: :request do
   describe 'GET popular_tags' do
     before do
       3.times do |i|
-       create(:task, title: "task_no_#{i}")
+        create(:task, title: "task_no_#{i}")
       end
       @tag_1 = create(:tag, name: 'facebook')
       @tag_2 = create(:tag, name: 'twitter')
@@ -19,7 +21,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
       parsed_response = JSON.parse(response.body)
 
       expect(parsed_response['success']).to eq true
-      expect(parsed_response.dig('data').length).to eq 2
+      expect(parsed_response['data'].length).to eq 2
       expect(parsed_response.dig('data', 0, 'id')).to eq @tag_2.id
       expect(parsed_response.dig('data', 1, 'id')).to eq @tag_1.id
     end
