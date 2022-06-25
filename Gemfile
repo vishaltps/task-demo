@@ -54,6 +54,12 @@ group :development, :test do
   # Linting
   gem 'rubocop'
   gem 'rubocop-rails'
+
+  # pronot
+  gem 'pronto'
+  gem 'pronto-rubocop', require: false
+  gem 'pronto-flay', require: false
+
 end
 
 group :development do
